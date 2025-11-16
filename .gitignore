@@ -8,8 +8,7 @@ obj/
 *.user
 *.suo
 *.userosscache
-*.sln.docstates
-*.sln
+
 
 # VS settings
 .vs/
