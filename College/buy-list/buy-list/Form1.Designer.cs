@@ -34,9 +34,10 @@
             this.btnProductChange = new System.Windows.Forms.Button();
             this.btnProductRemove = new System.Windows.Forms.Button();
             this.btnSearchName = new System.Windows.Forms.Button();
-            this.btnSort = new System.Windows.Forms.Button();
             this.dgvBuyList = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tbProductPrice = new System.Windows.Forms.TextBox();
             this.btnOpenStatistic = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.cbProductCategory = new System.Windows.Forms.ComboBox();
@@ -46,6 +47,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbProductName = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnFilter = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.dtpFilterDate2 = new System.Windows.Forms.DateTimePicker();
@@ -60,9 +62,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.clbFilterCategory = new System.Windows.Forms.CheckedListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbSortDirection = new System.Windows.Forms.CheckBox();
-            this.cbSortType = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tbSearchName = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -72,7 +71,6 @@
             this.експортJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.зберегтиЯкToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBuyList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -140,27 +138,24 @@
             this.btnSearchName.UseVisualStyleBackColor = true;
             this.btnSearchName.Click += new System.EventHandler(this.btnSearchName_Click);
             // 
-            // btnSort
-            // 
-            this.btnSort.Location = new System.Drawing.Point(84, 81);
-            this.btnSort.Name = "btnSort";
-            this.btnSort.Size = new System.Drawing.Size(75, 23);
-            this.btnSort.TabIndex = 7;
-            this.btnSort.Text = "Сортувати";
-            this.btnSort.UseVisualStyleBackColor = true;
-            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
-            // 
             // dgvBuyList
             // 
+            this.dgvBuyList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvBuyList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBuyList.Location = new System.Drawing.Point(316, 167);
             this.dgvBuyList.Name = "dgvBuyList";
-            this.dgvBuyList.Size = new System.Drawing.Size(638, 345);
+            this.dgvBuyList.Size = new System.Drawing.Size(638, 269);
             this.dgvBuyList.TabIndex = 9;
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.tbProductPrice);
             this.groupBox1.Controls.Add(this.btnOpenStatistic);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbProductCategory);
@@ -180,6 +175,23 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Товар";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(51, 77);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(32, 13);
+            this.label13.TabIndex = 21;
+            this.label13.Text = "Ціна:";
+            // 
+            // tbProductPrice
+            // 
+            this.tbProductPrice.Location = new System.Drawing.Point(93, 74);
+            this.tbProductPrice.Name = "tbProductPrice";
+            this.tbProductPrice.Size = new System.Drawing.Size(237, 20);
+            this.tbProductPrice.TabIndex = 20;
+            this.tbProductPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbProductPrice_KeyPress);
             // 
             // btnOpenStatistic
             // 
@@ -202,17 +214,23 @@
             // 
             // cbProductCategory
             // 
+            this.cbProductCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductCategory.FormattingEnabled = true;
+            this.cbProductCategory.Items.AddRange(new object[] {
+            "Їжа",
+            "Напої",
+            "Побутове",
+            "Електроніка",
+            "Одяг"});
             this.cbProductCategory.Location = new System.Drawing.Point(336, 50);
             this.cbProductCategory.Name = "cbProductCategory";
             this.cbProductCategory.Size = new System.Drawing.Size(135, 21);
             this.cbProductCategory.TabIndex = 17;
-            this.cbProductCategory.Text = "-- Оберіть категорію --";
             // 
             // cbProductBought
             // 
             this.cbProductBought.AutoSize = true;
-            this.cbProductBought.Location = new System.Drawing.Point(93, 76);
+            this.cbProductBought.Location = new System.Drawing.Point(336, 77);
             this.cbProductBought.Name = "cbProductBought";
             this.cbProductBought.Size = new System.Drawing.Size(107, 17);
             this.cbProductBought.TabIndex = 16;
@@ -254,7 +272,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.Window;
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnFilter);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.dtpFilterDate2);
@@ -274,6 +292,16 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фільтр";
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.Location = new System.Drawing.Point(212, 312);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(80, 23);
+            this.btnFilter.TabIndex = 25;
+            this.btnFilter.Text = "Фільтрувати";
+            this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // label12
             // 
@@ -394,51 +422,15 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Window;
-            this.groupBox3.Controls.Add(this.cbSortDirection);
-            this.groupBox3.Controls.Add(this.cbSortType);
-            this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.tbSearchName);
             this.groupBox3.Controls.Add(this.btnSearchName);
-            this.groupBox3.Controls.Add(this.btnSort);
             this.groupBox3.Location = new System.Drawing.Point(12, 378);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(298, 134);
+            this.groupBox3.Size = new System.Drawing.Size(298, 58);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Пошук та сортування";
-            // 
-            // cbSortDirection
-            // 
-            this.cbSortDirection.AutoSize = true;
-            this.cbSortDirection.Location = new System.Drawing.Point(165, 85);
-            this.cbSortDirection.Name = "cbSortDirection";
-            this.cbSortDirection.Size = new System.Drawing.Size(81, 17);
-            this.cbSortDirection.TabIndex = 20;
-            this.cbSortDirection.Text = "З меншого";
-            this.cbSortDirection.UseVisualStyleBackColor = true;
-            // 
-            // cbSortType
-            // 
-            this.cbSortType.FormattingEnabled = true;
-            this.cbSortType.Items.AddRange(new object[] {
-            "Ціною",
-            "Датою",
-            "Назвою"});
-            this.cbSortType.Location = new System.Drawing.Point(84, 54);
-            this.cbSortType.Name = "cbSortType";
-            this.cbSortType.Size = new System.Drawing.Size(179, 21);
-            this.cbSortType.TabIndex = 23;
-            this.cbSortType.Text = "-- Оберіть за чим сортувати --";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 57);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
-            this.label6.TabIndex = 22;
-            this.label6.Text = "Сортування:";
+            this.groupBox3.Text = "Пошук ";
             // 
             // label5
             // 
@@ -508,20 +500,11 @@
             this.зберегтиЯкToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.зберегтиЯкToolStripMenuItem.Text = "Зберегти як..";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(212, 312);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 23);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "Фільтрувати";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 521);
+            this.ClientSize = new System.Drawing.Size(962, 444);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -552,7 +535,6 @@
         private System.Windows.Forms.Button btnProductChange;
         private System.Windows.Forms.Button btnProductRemove;
         private System.Windows.Forms.Button btnSearchName;
-        private System.Windows.Forms.Button btnSort;
         private System.Windows.Forms.DataGridView dgvBuyList;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
@@ -568,8 +550,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbSearchName;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cbSortType;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
@@ -581,7 +561,6 @@
         private System.Windows.Forms.DateTimePicker dtpFilterDate1;
         private System.Windows.Forms.CheckBox cbFilterBought;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.CheckBox cbSortDirection;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem імпортJSONToolStripMenuItem;
@@ -590,7 +569,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem зберегтиЯкToolStripMenuItem;
         private System.Windows.Forms.Button btnOpenStatistic;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnFilter;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tbProductPrice;
     }
 }
 
