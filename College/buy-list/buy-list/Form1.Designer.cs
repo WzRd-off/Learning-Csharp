@@ -47,7 +47,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbProductName = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnFilter = new System.Windows.Forms.Button();
+            this.tbSearchName = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.dtpFilterDate2 = new System.Windows.Forms.DateTimePicker();
@@ -61,20 +63,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.clbFilterCategory = new System.Windows.Forms.CheckedListBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbSearchName = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.імпортJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importJSON = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.експортJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportJSON = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.зберегтиЯкToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAs = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBuyList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,7 +128,7 @@
             // 
             // btnSearchName
             // 
-            this.btnSearchName.Location = new System.Drawing.Point(178, 19);
+            this.btnSearchName.Location = new System.Drawing.Point(175, 360);
             this.btnSearchName.Name = "btnSearchName";
             this.btnSearchName.Size = new System.Drawing.Size(85, 23);
             this.btnSearchName.TabIndex = 6;
@@ -144,9 +142,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvBuyList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBuyList.Location = new System.Drawing.Point(316, 167);
+            this.dgvBuyList.Location = new System.Drawing.Point(287, 167);
             this.dgvBuyList.Name = "dgvBuyList";
-            this.dgvBuyList.Size = new System.Drawing.Size(638, 269);
+            this.dgvBuyList.Size = new System.Drawing.Size(643, 269);
             this.dgvBuyList.TabIndex = 9;
             // 
             // groupBox1
@@ -169,9 +167,9 @@
             this.groupBox1.Controls.Add(this.btnProductAdd);
             this.groupBox1.Controls.Add(this.btnProductChange);
             this.groupBox1.Controls.Add(this.btnProductRemove);
-            this.groupBox1.Location = new System.Drawing.Point(316, 27);
+            this.groupBox1.Location = new System.Drawing.Point(287, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(638, 134);
+            this.groupBox1.Size = new System.Drawing.Size(643, 134);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Товар";
@@ -217,11 +215,11 @@
             this.cbProductCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductCategory.FormattingEnabled = true;
             this.cbProductCategory.Items.AddRange(new object[] {
-            "Їжа",
-            "Напої",
-            "Побутове",
-            "Електроніка",
-            "Одяг"});
+            "-Їжа",
+            "-Напої",
+            "-Побутове",
+            "-Електроніка",
+            "-Одяг"});
             this.cbProductCategory.Location = new System.Drawing.Point(336, 50);
             this.cbProductCategory.Name = "cbProductCategory";
             this.cbProductCategory.Size = new System.Drawing.Size(135, 21);
@@ -272,7 +270,10 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.btnFilter);
+            this.groupBox2.Controls.Add(this.tbSearchName);
+            this.groupBox2.Controls.Add(this.btnSearchName);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.dtpFilterDate2);
@@ -288,20 +289,36 @@
             this.groupBox2.Controls.Add(this.clbFilterCategory);
             this.groupBox2.Location = new System.Drawing.Point(12, 27);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(298, 345);
+            this.groupBox2.Size = new System.Drawing.Size(269, 409);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фільтр";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 365);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Пошук:";
+            // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(212, 312);
+            this.btnFilter.Location = new System.Drawing.Point(175, 312);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(80, 23);
+            this.btnFilter.Size = new System.Drawing.Size(85, 23);
             this.btnFilter.TabIndex = 25;
             this.btnFilter.Text = "Фільтрувати";
             this.btnFilter.UseVisualStyleBackColor = true;
             this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
+            // 
+            // tbSearchName
+            // 
+            this.tbSearchName.Location = new System.Drawing.Point(55, 362);
+            this.tbSearchName.Name = "tbSearchName";
+            this.tbSearchName.Size = new System.Drawing.Size(114, 20);
+            this.tbSearchName.TabIndex = 20;
             // 
             // label12
             // 
@@ -410,7 +427,7 @@
             this.clbFilterCategory.Items.AddRange(new object[] {
             "-Всі",
             "-Їжа",
-            "-Напії",
+            "-Напої",
             "-Побутове",
             "-Електроніка",
             "-Одяг"});
@@ -419,35 +436,6 @@
             this.clbFilterCategory.Size = new System.Drawing.Size(189, 94);
             this.clbFilterCategory.TabIndex = 14;
             // 
-            // groupBox3
-            // 
-            this.groupBox3.BackColor = System.Drawing.SystemColors.Window;
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.tbSearchName);
-            this.groupBox3.Controls.Add(this.btnSearchName);
-            this.groupBox3.Location = new System.Drawing.Point(12, 378);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(298, 58);
-            this.groupBox3.TabIndex = 13;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Пошук ";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 24);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "Пошук:";
-            // 
-            // tbSearchName
-            // 
-            this.tbSearchName.Location = new System.Drawing.Point(58, 21);
-            this.tbSearchName.Name = "tbSearchName";
-            this.tbSearchName.Size = new System.Drawing.Size(114, 20);
-            this.tbSearchName.TabIndex = 20;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
@@ -455,7 +443,7 @@
             this.файлToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(962, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(967, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -463,49 +451,51 @@
             // 
             this.файлToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.імпортJSONToolStripMenuItem,
+            this.importJSON,
             this.toolStripSeparator1,
-            this.експортJSONToolStripMenuItem,
+            this.exportJSON,
             this.toolStripSeparator2,
-            this.зберегтиЯкToolStripMenuItem});
+            this.saveAs});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // імпортJSONToolStripMenuItem
+            // importJSON
             // 
-            this.імпортJSONToolStripMenuItem.Name = "імпортJSONToolStripMenuItem";
-            this.імпортJSONToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.імпортJSONToolStripMenuItem.Text = "Імпорт JSON";
+            this.importJSON.Name = "importJSON";
+            this.importJSON.Size = new System.Drawing.Size(180, 22);
+            this.importJSON.Text = "Імпорт JSON";
+            this.importJSON.Click += new System.EventHandler(this.importJSON_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
-            // експортJSONToolStripMenuItem
+            // exportJSON
             // 
-            this.експортJSONToolStripMenuItem.Name = "експортJSONToolStripMenuItem";
-            this.експортJSONToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.експортJSONToolStripMenuItem.Text = "Експорт JSON";
+            this.exportJSON.Name = "exportJSON";
+            this.exportJSON.Size = new System.Drawing.Size(180, 22);
+            this.exportJSON.Text = "Експорт JSON";
+            this.exportJSON.Click += new System.EventHandler(this.exportJSON_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(146, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
-            // зберегтиЯкToolStripMenuItem
+            // saveAs
             // 
-            this.зберегтиЯкToolStripMenuItem.Name = "зберегтиЯкToolStripMenuItem";
-            this.зберегтиЯкToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.зберегтиЯкToolStripMenuItem.Text = "Зберегти як..";
+            this.saveAs.Name = "saveAs";
+            this.saveAs.Size = new System.Drawing.Size(180, 22);
+            this.saveAs.Text = "Зберегти як..";
+            this.saveAs.Click += new System.EventHandler(this.saveAs_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 444);
-            this.Controls.Add(this.groupBox3);
+            this.ClientSize = new System.Drawing.Size(967, 444);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvBuyList);
@@ -519,8 +509,6 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -547,7 +535,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbProductCategory;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbSearchName;
         private System.Windows.Forms.Label label9;
@@ -563,11 +550,11 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem імпортJSONToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importJSON;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem експортJSONToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportJSON;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem зберегтиЯкToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAs;
         private System.Windows.Forms.Button btnOpenStatistic;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Label label13;
