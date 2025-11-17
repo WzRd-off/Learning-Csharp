@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnUndo = new System.Windows.Forms.Button();
             this.btnRedo = new System.Windows.Forms.Button();
             this.btnProductAdd = new System.Windows.Forms.Button();
@@ -68,10 +69,14 @@
             this.import = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.export = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDropFilter = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBuyList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnUndo
@@ -136,13 +141,13 @@
             // 
             // dgvBuyList
             // 
-            this.dgvBuyList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvBuyList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvBuyList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvBuyList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBuyList.Location = new System.Drawing.Point(287, 167);
             this.dgvBuyList.Name = "dgvBuyList";
-            this.dgvBuyList.Size = new System.Drawing.Size(643, 269);
+            this.dgvBuyList.Size = new System.Drawing.Size(678, 292);
             this.dgvBuyList.TabIndex = 9;
             // 
             // groupBox1
@@ -167,7 +172,7 @@
             this.groupBox1.Controls.Add(this.btnProductRemove);
             this.groupBox1.Location = new System.Drawing.Point(287, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(643, 134);
+            this.groupBox1.Size = new System.Drawing.Size(678, 134);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Товар";
@@ -268,6 +273,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox2.Controls.Add(this.btnDropFilter);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.btnFilter);
             this.groupBox2.Controls.Add(this.tbSearchName);
@@ -287,7 +293,7 @@
             this.groupBox2.Controls.Add(this.clbFilterCategory);
             this.groupBox2.Location = new System.Drawing.Point(12, 27);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(269, 409);
+            this.groupBox2.Size = new System.Drawing.Size(269, 432);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фільтр";
@@ -441,7 +447,7 @@
             this.файлToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(967, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(977, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -475,11 +481,41 @@
             this.export.Text = "Експорт JSON|TXT|CSV";
             this.export.Click += new System.EventHandler(this.export_Click);
             // 
+            // btnDropFilter
+            // 
+            this.btnDropFilter.Location = new System.Drawing.Point(55, 403);
+            this.btnDropFilter.Name = "btnDropFilter";
+            this.btnDropFilter.Size = new System.Drawing.Size(205, 23);
+            this.btnDropFilter.TabIndex = 26;
+            this.btnDropFilter.Text = "Скинути фільтр";
+            this.btnDropFilter.UseVisualStyleBackColor = true;
+            this.btnDropFilter.Click += new System.EventHandler(this.btnDropFilter_Click);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(977, 25);
+            this.toolStrip1.TabIndex = 15;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(98, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(967, 444);
+            this.ClientSize = new System.Drawing.Size(977, 465);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvBuyList);
@@ -495,6 +531,8 @@
             this.groupBox2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -541,6 +579,9 @@
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tbProductPrice;
+        private System.Windows.Forms.Button btnDropFilter;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 

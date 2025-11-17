@@ -49,21 +49,6 @@ namespace buy_list
             autoSaveTimer.Start();
         }
 
-        private void autoSave_Tick(object sender, EventArgs e)
-        {
-            if (dataFilePath.Contains(".json"))
-            {
-                File.WriteAllText(dataFilePath, JsonSerializer.Serialize(mainBuyList));
-            }
-            else if (dataFilePath.Contains(".txt"))
-            {
-                exportToFile(dataFilePath);
-            }
-            else if (dataFilePath.Contains(".csv"))
-            {
-                exportToFile(dataFilePath, true);
-            }
-        }
         private void btnUndo_Click(object sender, EventArgs e)
         {
             if (undo.Count > 0)
@@ -155,11 +140,12 @@ namespace buy_list
             //╚══════════════╩═╩╝
         private void btnSearchName_Click(object sender, EventArgs e)
         {
-            if (tbSearchName.Text.Length == 0)
+            List<Dictionary<string, string>> searchResult = new List<Dictionary<string, string>>();
+            if (string.IsNullOrWhiteSpace(tbSearchName.Text))
             {
-                MessageBox.Show("Пошукова строка не може бути пустою!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                searchResult = mainBuyList;
             }
-            List<Dictionary<string, string>> searchResult = mainBuyList.Where(product => product["Name"].Contains(tbSearchName.Text)).ToList();
+            searchResult = mainBuyList.Where(product => product["Name"].Contains(tbSearchName.Text)).ToList();
 
             UpdateDgv(searchResult);
 
@@ -167,11 +153,6 @@ namespace buy_list
 
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            if (clbFilterCategory.CheckedItems.Count == 0)
-            {
-                MessageBox.Show("Категорія не може бути не обрана!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
             List<Dictionary<string, string>> filterResult = new List<Dictionary<string, string>>();
 
@@ -183,7 +164,10 @@ namespace buy_list
                     filterResult.AddRange(mainBuyList.Where(product => product["Category"] == checkedItem.ToString()).ToList());
                 }
             }
-
+            else
+            {
+                filterResult.AddRange(mainBuyList);
+            }
             // Bought filter            
             if (cbFilterBought.Checked)
             {
@@ -195,13 +179,16 @@ namespace buy_list
             DateTime end = dtpFilterDate2.Value.Date;
 
             filterResult = filterResult.Where(product => (DateTime.Parse(product["Date"]).Date >= start && DateTime.Parse(product["Date"]).Date <= end)).ToList();
-            
+
             // Price filter
-            var startPrice = decimal.Parse(tbFilterPrice1.Text);
-            var endPrice = decimal.Parse(tbFilterPrice2.Text);
+            if (!(tbFilterPrice1.Text.Length == 0 || tbFilterPrice2.Text.Length == 0))
+            {
 
-            filterResult = filterResult.Where(product => (decimal.Parse(product["Price"]) >= startPrice && decimal.Parse(product["Price"]) <= endPrice)).ToList();
+                var startPrice = decimal.Parse(tbFilterPrice1.Text);
+                var endPrice = decimal.Parse(tbFilterPrice2.Text);
 
+                filterResult = filterResult.Where(product => (decimal.Parse(product["Price"]) >= startPrice && decimal.Parse(product["Price"]) <= endPrice)).ToList();
+            }
             UpdateDgv(filterResult);
 
         }
@@ -310,14 +297,14 @@ namespace buy_list
             }
         }
 
-        void clearProductInputFields() {
+        private void clearProductInputFields() {
             tbProductName.Clear();
             tbProductPrice.Clear();
             cbProductCategory.SelectedItem = null;
             cbProductBought.Checked = false;
         }
 
-        void addToDictData(Dictionary<string, string> dict) { 
+        private void addToDictData(Dictionary<string, string> dict) { 
         
             dict["Name"] = tbProductName.Text;
             dict["Category"] = cbProductCategory.SelectedItem.ToString();
@@ -327,7 +314,7 @@ namespace buy_list
 
         }
 
-        void UpdateDgv(List<Dictionary<string, string>> listToShow)
+        private void UpdateDgv(List<Dictionary<string, string>> listToShow)
         {
             dtBuyList.Rows.Clear();
 
@@ -343,7 +330,7 @@ namespace buy_list
             }
         }
 
-        List<Dictionary<string, string>> DeepCopy(List<Dictionary<string, string>> list) {
+        private List<Dictionary<string, string>> DeepCopy(List<Dictionary<string, string>> list) {
 
             List<Dictionary<string, string>> newList = new List<Dictionary<string, string>>();
             foreach (Dictionary<string, string> dict in list)
@@ -355,10 +342,42 @@ namespace buy_list
 
         }
 
-        void SaveStateForUndo()
+        private void autoSave_Tick(object sender, EventArgs e)
+        {
+            if (dataFilePath.Contains(".json"))
+            {
+                File.WriteAllText(dataFilePath, JsonSerializer.Serialize(mainBuyList));
+            }
+            else if (dataFilePath.Contains(".txt"))
+            {
+                exportToFile(dataFilePath);
+            }
+            else if (dataFilePath.Contains(".csv"))
+            {
+                exportToFile(dataFilePath, true);
+            }
+        }
+
+        private void SaveStateForUndo()
         {
             undo.Push(DeepCopy(mainBuyList));
             redo.Clear(); // history changed
+        }
+
+        private void btnDropFilter_Click(object sender, EventArgs e)
+        {
+            cbFilterBought.Checked = false;
+            dtpFilterDate1.Value = DateTime.Now;
+            dtpFilterDate2.Value = DateTime.Now;
+            tbFilterPrice1.Clear();
+            tbFilterPrice2.Clear();
+            clbFilterCategory.SetItemChecked(0, true);
+            for (int i = 1; i < clbFilterCategory.Items.Count; i++)
+            {
+                clbFilterCategory.SetItemChecked(i, false);
+            }
+
+            UpdateDgv(mainBuyList);
         }
 
         private Dictionary<string, string> ParseLineToProduct(string line)
