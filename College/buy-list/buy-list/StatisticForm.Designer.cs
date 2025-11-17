@@ -144,6 +144,7 @@
             this.Controls.Add(this.lTotalSum);
             this.Name = "StatisticForm";
             this.Text = "StatisticForm";
+            this.Load += new System.EventHandler(this.StatisticForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatStat)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

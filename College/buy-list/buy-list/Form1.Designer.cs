@@ -65,11 +65,9 @@
             this.clbFilterCategory = new System.Windows.Forms.CheckedListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importJSON = new System.Windows.Forms.ToolStripMenuItem();
+            this.import = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exportJSON = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.saveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.export = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBuyList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -451,45 +449,31 @@
             // 
             this.файлToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importJSON,
+            this.import,
             this.toolStripSeparator1,
-            this.exportJSON,
-            this.toolStripSeparator2,
-            this.saveAs});
+            this.export});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // importJSON
+            // import
             // 
-            this.importJSON.Name = "importJSON";
-            this.importJSON.Size = new System.Drawing.Size(180, 22);
-            this.importJSON.Text = "Імпорт JSON";
-            this.importJSON.Click += new System.EventHandler(this.importJSON_Click);
+            this.import.Name = "import";
+            this.import.Size = new System.Drawing.Size(197, 22);
+            this.import.Text = "Імпорт JSON|TXT|CSV";
+            this.import.Click += new System.EventHandler(this.import_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(194, 6);
             // 
-            // exportJSON
+            // export
             // 
-            this.exportJSON.Name = "exportJSON";
-            this.exportJSON.Size = new System.Drawing.Size(180, 22);
-            this.exportJSON.Text = "Експорт JSON";
-            this.exportJSON.Click += new System.EventHandler(this.exportJSON_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // saveAs
-            // 
-            this.saveAs.Name = "saveAs";
-            this.saveAs.Size = new System.Drawing.Size(180, 22);
-            this.saveAs.Text = "Зберегти як..";
-            this.saveAs.Click += new System.EventHandler(this.saveAs_Click);
+            this.export.Name = "export";
+            this.export.Size = new System.Drawing.Size(197, 22);
+            this.export.Text = "Експорт JSON|TXT|CSV";
+            this.export.Click += new System.EventHandler(this.export_Click);
             // 
             // Form1
             // 
@@ -550,11 +534,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importJSON;
+        private System.Windows.Forms.ToolStripMenuItem import;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem exportJSON;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem saveAs;
+        private System.Windows.Forms.ToolStripMenuItem export;
         private System.Windows.Forms.Button btnOpenStatistic;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Label label13;

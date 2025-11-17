@@ -21,6 +21,8 @@ namespace buy_list
             undo = new Stack<List<Dictionary<string, string>>>(), 
             redo = new Stack<List<Dictionary<string, string>>>();
 
+        public List<Dictionary<string, string>> MainBuyList { get { return mainBuyList; } }
+
         public Form1()
         {
             InitializeComponent();
@@ -153,7 +155,6 @@ namespace buy_list
             // Category filter
             if (!(clbFilterCategory.CheckedItems.Count == 1 && clbFilterCategory.CheckedItems.Contains("-Всі")))
             {
-                
                 foreach (var checkedItem in clbFilterCategory.CheckedItems)
                 {
                     filterResult.AddRange(mainBuyList.Where(product => product["Category"] == checkedItem.ToString()).ToList());
@@ -166,11 +167,13 @@ namespace buy_list
                 filterResult = filterResult.Where(product => product["Bought"] == "True").ToList();
             }
 
+            // Date filter
             DateTime start = dtpFilterDate1.Value.Date;
             DateTime end = dtpFilterDate2.Value.Date;
 
             filterResult = filterResult.Where(product => (DateTime.Parse(product["Date"]).Date >= start && DateTime.Parse(product["Date"]).Date <= end)).ToList();
-
+            
+            // Price filter
             var startPrice = decimal.Parse(tbFilterPrice1.Text);
             var endPrice = decimal.Parse(tbFilterPrice2.Text);
 
@@ -182,39 +185,89 @@ namespace buy_list
 
         private void btnOpenStatistic_Click(object sender, EventArgs e)
         {
-            StatisticForm f = new StatisticForm();
+            StatisticForm f = new StatisticForm(this);
             f.Show();
         }
 
-        private void exportJSON_Click(object sender, EventArgs e)
+        private void import_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
+            using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                sfd.Filter = "JSON files (*.json)|*.json";
-                if (sfd.ShowDialog() == DialogResult.OK)
+                ofd.Filter = "JSON files (*.json)|*.json|Text files (*.txt)|*.txt|CSV files (*.csv)|*.csv";
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    string filePath = sfd.FileName;
-                    string jsonString = JsonSerializer.Serialize(mainBuyList);
-                    File.WriteAllText(filePath, jsonString);
+                    string filePath = ofd.FileName;
+                    try
+                    {
+                        List<Dictionary<string, string>> tempList = new List<Dictionary<string, string>>();
+                        if (ofd.FilterIndex == 1)
+                        {
+                            string jsonString = File.ReadAllText(filePath);
+                            tempList = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(jsonString);
+                        }
+                        else if (ofd.FilterIndex == 2)
+                        {
+                            string[] lines = File.ReadAllLines(filePath);
+                            foreach (string line in lines)
+                            {
+                                if (!string.IsNullOrWhiteSpace(line))
+                                {
+                                    tempList.Add(ParseLineToProduct(line));
+                                }
+                            }
+                        }
+                        else if (ofd.FilterIndex == 3)
+                        {
+                            string[] lines = File.ReadAllLines(filePath);
+                            for (int i = 1; i < lines.Length; i++)
+                            {
+                                if (!string.IsNullOrWhiteSpace(lines[i]))
+                                {
+                                    tempList.Add(ParseLineToProduct(lines[i]));
+                                }
+                            }
+                        }
+                        mainBuyList = tempList;
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show($"Помилка при читанні файлу:\n{ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    UpdateDgv(mainBuyList);
                 }
             }
         }
-
-        private void saveAs_Click(object sender, EventArgs e)
+        private void export_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog()) {
-                sfd.Filter = "Text files (*.txt)|*.txt|CSV files (*.csv)|*.csv";
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "JSON files (*.json)|*.json|Text files (*.txt)|*.txt|CSV files (*.csv)|*.csv";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = sfd.FileName;
                     using (StreamWriter sw = new StreamWriter(filePath))
                     {
-                        if (sfd.FilterIndex == 2) {
-                            sw.WriteLine("Name;Category;Price;Date;Bought");
-                        }
-                        foreach (Dictionary<string, string> product in mainBuyList)
+                        if (sfd.FilterIndex == 1)
                         {
-                            sw.WriteLine(string.Join(";", product.Values));
+                            string jsonString = JsonSerializer.Serialize(mainBuyList);
+                            File.WriteAllText(filePath, jsonString);
+                        }
+                        else if (sfd.FilterIndex == 2)
+                        {
+                            foreach (Dictionary<string, string> product in mainBuyList)
+                            {
+                                sw.WriteLine(string.Join(",", product.Values));
+                            }
+                            
+                        }
+                        else if (sfd.FilterIndex == 3)
+                        {
+                            sw.WriteLine("Name,Category,Price,Date,Bought");
+                            foreach (Dictionary<string, string> product in mainBuyList)
+                            {
+                                sw.WriteLine(string.Join(",", product.Values));
+                            }
+                            
                         }
                     }
                 }
@@ -243,23 +296,6 @@ namespace buy_list
             dict["Date"] = dtpProductDate.Value.ToShortDateString();
             dict["Bought"] = cbProductBought.Checked.ToString();
 
-        }
-
-        private void importJSON_Click(object sender, EventArgs e)
-        {
-            
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                
-                ofd.Filter = "JSON files (*.json)|*.json";
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    string filePath = ofd.FileName;
-                    string jsonString = File.ReadAllText(filePath);
-                    mainBuyList = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(jsonString);
-                    UpdateDgv(mainBuyList);
-                }
-            }
         }
 
         void UpdateDgv(List<Dictionary<string, string>> listToShow)
@@ -294,6 +330,24 @@ namespace buy_list
         {
             undo.Push(DeepCopy(mainBuyList));
             redo.Clear(); // history changed
+        }
+
+        private Dictionary<string, string> ParseLineToProduct(string line)
+        {
+            string[] parts = line.Split(',');
+
+            Dictionary<string, string> product = new Dictionary<string, string>();
+
+            if (parts.Length >= 5)
+            {
+                product["Name"] = parts[0].Trim();
+                product["Category"] = parts[1].Trim();
+                product["Price"] = parts[2].Trim();
+                product["Date"] = parts[3].Trim(); 
+                product["Bought"] = parts[4].Trim();
+            }
+
+            return product;
         }
 
     }
