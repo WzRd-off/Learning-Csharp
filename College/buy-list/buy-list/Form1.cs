@@ -8,7 +8,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.Json;
-using System.Windows.Forms;
+
+
+//
+//     ТЕКСТЕДИТЕД ПОИСК, ТОВАР В МОДАЛКУ, СТранные Кнопки в тулстрип
+//
+
 
 namespace buy_list
 {
@@ -133,11 +138,6 @@ namespace buy_list
 
         }
 
-            //╔╦╦═══════╦╦══════╗
-            //║║╚╦═╦═╦═╗║╚╦╗╔╦═╗║
-            //║║║║╩╣╠╣╩╣║║║╚╝║║║║
-            //║╚╩╩═╩╝╚═╝╚═╩══╬═║║
-            //╚══════════════╩═╩╝
         private void btnSearchName_Click(object sender, EventArgs e)
         {
             List<Dictionary<string, string>> searchResult = new List<Dictionary<string, string>>();
