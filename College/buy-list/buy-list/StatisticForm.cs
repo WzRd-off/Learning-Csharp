@@ -18,7 +18,6 @@ namespace buy_list
 
         private void StatisticForm_Load(object sender, EventArgs e)
         {
-            // Отримуємо список з головної форми
             var list = mainForm.MainBuyList;
 
             if (list == null || list.Count == 0)

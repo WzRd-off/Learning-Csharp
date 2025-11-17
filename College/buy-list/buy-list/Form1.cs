@@ -8,13 +8,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.Json;
+using System.Windows.Forms;
 
 namespace buy_list
 {
     public partial class Form1 : Form
     {
         // VARIABLES
+
         DataTable dtBuyList = new DataTable();
+        private string dataFilePath = "";
         private List<Dictionary<string, string>> mainBuyList = new List<Dictionary<string, string>>();
         private Dictionary<string, decimal> statistic = new Dictionary<string, decimal>();
         private Stack<List<Dictionary<string, string>>> 
@@ -39,8 +42,28 @@ namespace buy_list
             dgvBuyList.DataSource = dtBuyList;
 
             clbFilterCategory.SetItemChecked(0, true);
+
+            Timer autoSaveTimer = new Timer();
+            autoSaveTimer.Interval = 60_000;
+            autoSaveTimer.Tick += autoSave_Tick;
+            autoSaveTimer.Start();
         }
 
+        private void autoSave_Tick(object sender, EventArgs e)
+        {
+            if (dataFilePath.Contains(".json"))
+            {
+                File.WriteAllText(dataFilePath, JsonSerializer.Serialize(mainBuyList));
+            }
+            else if (dataFilePath.Contains(".txt"))
+            {
+                exportToFile(dataFilePath);
+            }
+            else if (dataFilePath.Contains(".csv"))
+            {
+                exportToFile(dataFilePath, true);
+            }
+        }
         private void btnUndo_Click(object sender, EventArgs e)
         {
             if (undo.Count > 0)
@@ -197,6 +220,7 @@ namespace buy_list
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = ofd.FileName;
+                    dataFilePath = filePath;
                     try
                     {
                         List<Dictionary<string, string>> tempList = new List<Dictionary<string, string>>();
@@ -245,35 +269,40 @@ namespace buy_list
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = sfd.FileName;
-                    using (StreamWriter sw = new StreamWriter(filePath))
+
+                    if (sfd.FilterIndex == 1)
                     {
-                        if (sfd.FilterIndex == 1)
-                        {
-                            string jsonString = JsonSerializer.Serialize(mainBuyList);
-                            File.WriteAllText(filePath, jsonString);
-                        }
-                        else if (sfd.FilterIndex == 2)
-                        {
-                            foreach (Dictionary<string, string> product in mainBuyList)
-                            {
-                                sw.WriteLine(string.Join(",", product.Values));
-                            }
-                            
-                        }
-                        else if (sfd.FilterIndex == 3)
-                        {
-                            sw.WriteLine("Name,Category,Price,Date,Bought");
-                            foreach (Dictionary<string, string> product in mainBuyList)
-                            {
-                                sw.WriteLine(string.Join(",", product.Values));
-                            }
-                            
-                        }
+                        string jsonString = JsonSerializer.Serialize(mainBuyList);
+                        File.WriteAllText(filePath, jsonString);
                     }
+                    else if (sfd.FilterIndex == 2)
+                    {
+                        exportToFile(filePath);
+
+                    }
+                    else if (sfd.FilterIndex == 3)
+                    {
+                        exportToFile(filePath, true);
+    
+                    }
+                    
                 }
             }
         }
 
+        void exportToFile(string filePath, bool isCSV=false)
+        {
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                if (isCSV) {
+                    sw.WriteLine("Name,Category,Price,Date,Bought");
+                }
+                foreach (Dictionary<string, string> product in mainBuyList)
+                {
+                    sw.WriteLine(string.Join(",", product.Values));
+                }
+            }
+        }
         private void tbProductPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back) { 
