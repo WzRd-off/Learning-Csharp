@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.btnUndo = new System.Windows.Forms.Button();
-            this.btnRedo = new System.Windows.Forms.Button();
             this.btnProductAdd = new System.Windows.Forms.Button();
             this.btnProductChange = new System.Windows.Forms.Button();
             this.btnProductRemove = new System.Windows.Forms.Button();
@@ -39,7 +37,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tbProductPrice = new System.Windows.Forms.TextBox();
-            this.btnOpenStatistic = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.cbProductCategory = new System.Windows.Forms.ComboBox();
             this.cbProductBought = new System.Windows.Forms.CheckBox();
@@ -48,6 +45,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbProductName = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnDropFilter = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.btnFilter = new System.Windows.Forms.Button();
             this.tbSearchName = new System.Windows.Forms.TextBox();
@@ -69,35 +67,16 @@
             this.import = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.export = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnDropFilter = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.tsUndo = new System.Windows.Forms.ToolStripButton();
+            this.tsRedo = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBuyList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnUndo
-            // 
-            this.btnUndo.Location = new System.Drawing.Point(478, 22);
-            this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(75, 23);
-            this.btnUndo.TabIndex = 1;
-            this.btnUndo.Text = "Undo";
-            this.btnUndo.UseVisualStyleBackColor = true;
-            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
-            // 
-            // btnRedo
-            // 
-            this.btnRedo.Location = new System.Drawing.Point(559, 22);
-            this.btnRedo.Name = "btnRedo";
-            this.btnRedo.Size = new System.Drawing.Size(75, 23);
-            this.btnRedo.TabIndex = 2;
-            this.btnRedo.Text = "Redo";
-            this.btnRedo.UseVisualStyleBackColor = true;
-            this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
             // 
             // btnProductAdd
             // 
@@ -141,23 +120,18 @@
             // 
             // dgvBuyList
             // 
-            this.dgvBuyList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvBuyList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvBuyList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBuyList.Location = new System.Drawing.Point(287, 167);
+            this.dgvBuyList.Location = new System.Drawing.Point(287, 193);
             this.dgvBuyList.Name = "dgvBuyList";
-            this.dgvBuyList.Size = new System.Drawing.Size(678, 292);
+            this.dgvBuyList.Size = new System.Drawing.Size(517, 292);
             this.dgvBuyList.TabIndex = 9;
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.tbProductPrice);
-            this.groupBox1.Controls.Add(this.btnOpenStatistic);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbProductCategory);
             this.groupBox1.Controls.Add(this.cbProductBought);
@@ -165,14 +139,12 @@
             this.groupBox1.Controls.Add(this.dtpProductDate);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.tbProductName);
-            this.groupBox1.Controls.Add(this.btnUndo);
-            this.groupBox1.Controls.Add(this.btnRedo);
             this.groupBox1.Controls.Add(this.btnProductAdd);
             this.groupBox1.Controls.Add(this.btnProductChange);
             this.groupBox1.Controls.Add(this.btnProductRemove);
-            this.groupBox1.Location = new System.Drawing.Point(287, 27);
+            this.groupBox1.Location = new System.Drawing.Point(287, 53);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(678, 134);
+            this.groupBox1.Size = new System.Drawing.Size(517, 134);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Товар";
@@ -194,16 +166,6 @@
             this.tbProductPrice.TabIndex = 20;
             this.tbProductPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbProductPrice_KeyPress);
             // 
-            // btnOpenStatistic
-            // 
-            this.btnOpenStatistic.Location = new System.Drawing.Point(478, 99);
-            this.btnOpenStatistic.Name = "btnOpenStatistic";
-            this.btnOpenStatistic.Size = new System.Drawing.Size(154, 23);
-            this.btnOpenStatistic.TabIndex = 15;
-            this.btnOpenStatistic.Text = "Відкрити статистику";
-            this.btnOpenStatistic.UseVisualStyleBackColor = true;
-            this.btnOpenStatistic.Click += new System.EventHandler(this.btnOpenStatistic_Click);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -215,7 +177,8 @@
             // 
             // cbProductCategory
             // 
-            this.cbProductCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProductCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbProductCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbProductCategory.FormattingEnabled = true;
             this.cbProductCategory.Items.AddRange(new object[] {
             "-Їжа",
@@ -291,12 +254,22 @@
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.clbFilterCategory);
-            this.groupBox2.Location = new System.Drawing.Point(12, 27);
+            this.groupBox2.Location = new System.Drawing.Point(12, 53);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(269, 432);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фільтр";
+            // 
+            // btnDropFilter
+            // 
+            this.btnDropFilter.Location = new System.Drawing.Point(55, 403);
+            this.btnDropFilter.Name = "btnDropFilter";
+            this.btnDropFilter.Size = new System.Drawing.Size(205, 23);
+            this.btnDropFilter.TabIndex = 26;
+            this.btnDropFilter.Text = "Скинути фільтр";
+            this.btnDropFilter.UseVisualStyleBackColor = true;
+            this.btnDropFilter.Click += new System.EventHandler(this.btnDropFilter_Click);
             // 
             // label5
             // 
@@ -381,6 +354,7 @@
             this.tbFilterPrice2.Name = "tbFilterPrice2";
             this.tbFilterPrice2.Size = new System.Drawing.Size(62, 20);
             this.tbFilterPrice2.TabIndex = 20;
+            this.tbFilterPrice2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbProductPrice_KeyPress);
             // 
             // tbFilterPrice1
             // 
@@ -388,6 +362,7 @@
             this.tbFilterPrice1.Name = "tbFilterPrice1";
             this.tbFilterPrice1.Size = new System.Drawing.Size(62, 20);
             this.tbFilterPrice1.TabIndex = 19;
+            this.tbFilterPrice1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbProductPrice_KeyPress);
             // 
             // label9
             // 
@@ -447,7 +422,7 @@
             this.файлToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(977, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(816, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -481,40 +456,53 @@
             this.export.Text = "Експорт JSON|TXT|CSV";
             this.export.Click += new System.EventHandler(this.export_Click);
             // 
-            // btnDropFilter
-            // 
-            this.btnDropFilter.Location = new System.Drawing.Point(55, 403);
-            this.btnDropFilter.Name = "btnDropFilter";
-            this.btnDropFilter.Size = new System.Drawing.Size(205, 23);
-            this.btnDropFilter.TabIndex = 26;
-            this.btnDropFilter.Text = "Скинути фільтр";
-            this.btnDropFilter.UseVisualStyleBackColor = true;
-            this.btnDropFilter.Click += new System.EventHandler(this.btnDropFilter_Click);
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
+            this.tsUndo,
+            this.tsRedo,
+            this.toolStripButton3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(977, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(816, 25);
             this.toolStrip1.TabIndex = 15;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // tsUndo
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(98, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.tsUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsUndo.Image = ((System.Drawing.Image)(resources.GetObject("tsUndo.Image")));
+            this.tsUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsUndo.Name = "tsUndo";
+            this.tsUndo.Size = new System.Drawing.Size(40, 22);
+            this.tsUndo.Text = "Undo";
+            this.tsUndo.Click += new System.EventHandler(this.btnUndo_Click);
+            // 
+            // tsRedo
+            // 
+            this.tsRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsRedo.Image = ((System.Drawing.Image)(resources.GetObject("tsRedo.Image")));
+            this.tsRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsRedo.Name = "tsRedo";
+            this.tsRedo.Size = new System.Drawing.Size(38, 22);
+            this.tsRedo.Text = "Redo";
+            this.tsRedo.Click += new System.EventHandler(this.btnRedo_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(52, 22);
+            this.toolStripButton3.Text = "Statistic";
+            this.toolStripButton3.Click += new System.EventHandler(this.btnOpenStatistic_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 465);
+            this.ClientSize = new System.Drawing.Size(816, 492);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -539,8 +527,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnUndo;
-        private System.Windows.Forms.Button btnRedo;
         private System.Windows.Forms.Button btnProductAdd;
         private System.Windows.Forms.Button btnProductChange;
         private System.Windows.Forms.Button btnProductRemove;
@@ -575,13 +561,14 @@
         private System.Windows.Forms.ToolStripMenuItem import;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem export;
-        private System.Windows.Forms.Button btnOpenStatistic;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tbProductPrice;
         private System.Windows.Forms.Button btnDropFilter;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton tsUndo;
+        private System.Windows.Forms.ToolStripButton tsRedo;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
     }
 }
 

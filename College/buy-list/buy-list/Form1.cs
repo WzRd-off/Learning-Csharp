@@ -1,18 +1,15 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.Json;
 
-
-//
-//     ТЕКСТЕДИТЕД ПОИСК, ТОВАР В МОДАЛКУ, СТранные Кнопки в тулстрип
-//
 
 
 namespace buy_list
@@ -52,6 +49,44 @@ namespace buy_list
             autoSaveTimer.Interval = 60_000;
             autoSaveTimer.Tick += autoSave_Tick;
             autoSaveTimer.Start();
+
+            tsUndo.Enabled = false;
+            tsRedo.Enabled = false;
+
+            if (!string.IsNullOrEmpty(File.ReadAllText("settings.txt")))
+            {
+                List<Dictionary<string, string>> tempList = new List<Dictionary<string, string>>();
+                dataFilePath = File.ReadAllText("settings.txt");
+                if (dataFilePath.EndsWith(".json"))
+                {
+                    string jsonString = File.ReadAllText(dataFilePath);
+                    tempList = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(jsonString);
+                }
+                else if (dataFilePath.EndsWith(".txt"))
+                {
+                    string[] lines = File.ReadAllLines(dataFilePath);
+                    foreach (string line in lines)
+                    {
+                        if (!string.IsNullOrWhiteSpace(line))
+                        {
+                            tempList.Add(ParseLineToProduct(line));
+                        }
+                    }
+                }
+                else if (dataFilePath.EndsWith(".csv"))
+                {
+                    string[] lines = File.ReadAllLines(dataFilePath);
+                    for (int i = 1; i < lines.Length; i++)
+                    {
+                        if (!string.IsNullOrWhiteSpace(lines[i]))
+                        {
+                            tempList.Add(ParseLineToProduct(lines[i]));
+                        }
+                    }
+                }
+                mainBuyList = tempList;
+                UpdateDgv(mainBuyList);
+            }
         }
 
         private void btnUndo_Click(object sender, EventArgs e)
@@ -61,10 +96,11 @@ namespace buy_list
                 redo.Push(DeepCopy(mainBuyList));
                 mainBuyList = undo.Pop();
                 UpdateDgv(mainBuyList);
+                tsRedo.Enabled = true;
             }
-            else
+            if (undo.Count == 0)
             {
-                MessageBox.Show("Немає дій для скасування.", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tsUndo.Enabled = false;
             }
         }
 
@@ -75,10 +111,11 @@ namespace buy_list
                 undo.Push(DeepCopy(mainBuyList));
                 mainBuyList = redo.Pop();
                 UpdateDgv(mainBuyList);
+                tsUndo.Enabled = true;
             }
-            else
+            if (redo.Count == 0)
             {
-                MessageBox.Show("Немає дій для повторення.", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tsRedo.Enabled = false;
             }
         }
 
@@ -97,6 +134,7 @@ namespace buy_list
                 return;
             }
             SaveStateForUndo();
+            tsUndo.Enabled = true;
             Dictionary<string, string> newProduct = new Dictionary<string, string>();
             addToDictData(newProduct);
 
@@ -109,12 +147,25 @@ namespace buy_list
 
         private void btnProductChange_Click(object sender, EventArgs e)
         {
-            if (mainBuyList == null) {
-                MessageBox.Show("Список покупок пустий!\n Немає що редагувати", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (tbProductName.Text.Length == 0)
+            {
+                MessageBox.Show("Ім'я продукту не може бути пустим!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (cbProductCategory.SelectedItem == null)
+            {
+                MessageBox.Show("Категорія не може бути не вибрана!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (tbProductPrice.Text.Length == 0)
+            {
+                MessageBox.Show("Ціна продукту не може бути пустою!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             var Index = dgvBuyList.CurrentRow.Index;
             SaveStateForUndo();
+            tsUndo.Enabled = true;
             Dictionary<string, string> changedProduct = new Dictionary<string, string>();
             addToDictData(changedProduct);
 
@@ -247,6 +298,7 @@ namespace buy_list
                     UpdateDgv(mainBuyList);
                 }
             }
+            File.WriteAllText("settings.txt", dataFilePath);
         }
         private void export_Click(object sender, EventArgs e)
         {
@@ -277,7 +329,7 @@ namespace buy_list
             }
         }
 
-        void exportToFile(string filePath, bool isCSV=false)
+        private void exportToFile(string filePath, bool isCSV=false)
         {
             using (StreamWriter sw = new StreamWriter(filePath))
             {
@@ -328,6 +380,7 @@ namespace buy_list
                     product["Bought"]
                 );
             }
+
         }
 
         private List<Dictionary<string, string>> DeepCopy(List<Dictionary<string, string>> list) {
