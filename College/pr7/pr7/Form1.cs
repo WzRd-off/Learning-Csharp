@@ -35,7 +35,6 @@ namespace pr7
 
         private void SetupGrids()
         {
-            // Налаштування таблиці інструментів
             dgvTools.Columns.Add("Series", "ID");
             dgvTools.Columns.Add("Name", "Назва");
             dgvTools.Columns.Add("Category", "Категорія");
@@ -43,7 +42,6 @@ namespace pr7
             dgvTools.Columns.Add("State", "Стан");
             dgvTools.Columns.Add("Status", "Статус");
 
-            // Налаштування таблиці клієнтів
             dgvClients.Columns.Add("Id", "ID");
             dgvClients.Columns.Add("Name", "ПІБ");
             dgvClients.Columns.Add("Phone", "Телефон");
@@ -51,7 +49,6 @@ namespace pr7
 
         private void RefreshGrids()
         {
-            // Оновлення інструментів
             dgvTools.Rows.Clear();
             foreach (var tool in service.ToolCollection.Tools)
             {
@@ -61,12 +58,10 @@ namespace pr7
                     tool.Status ? "Доступний" : "Зайнятий"
                 );
 
-                // Фарбуємо рядки для наочності (опціонально, але корисно)
                 if (!tool.Status)
                     dgvTools.Rows[idx].DefaultCellStyle.BackColor = Color.LightGray;
             }
 
-            // Оновлення клієнтів
             dgvClients.Rows.Clear();
             foreach (var client in service.Clients)
             {
@@ -86,7 +81,6 @@ namespace pr7
 
                     service.RentToolToClient(toolId, clientId, days);
 
-                    // Повідомлення про успіх
                     var lastAgreement = service.Agreements.LastOrDefault();
                     string msg = "Оренда успішно оформлена!";
                     if (lastAgreement != null)
@@ -143,8 +137,6 @@ namespace pr7
                 MessageBox.Show("Помилка збереження: " + ex.Message, "Помилка");
             }
         }
-
-        // Кнопка статистики
         private void btnStats_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
@@ -156,7 +148,6 @@ namespace pr7
                 sb.AppendLine($"Клієнт: {client.FullName} (ID: {client.ClientId})");
                 sb.AppendLine($"Телефон: {client.PhoneNumber}");
 
-                // Отримуємо угоди для цього клієнта через індексатор сервісу
                 var clientAgreements = service[client.ClientId];
 
                 sb.AppendLine($"Активних/Минулих оренд: {clientAgreements.Count}");
