@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.SqlServer.Server;
+using pr8;
 
 namespace pr8
 {
@@ -15,6 +17,12 @@ namespace pr8
         public Form1()
         {
             InitializeComponent();
+        }
+        
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

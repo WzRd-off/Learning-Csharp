@@ -11,6 +11,12 @@ namespace pr8
         protected string teamName;
         protected int teamID;
 
+        public Team(string teamName, int teamID)
+        {
+            this.teamName = teamName;
+            RegistrationNumber = teamID;
+        }
+
         public int RegistrationNumber
         {
             get { return teamID; }
@@ -44,6 +50,11 @@ namespace pr8
         public static bool operator !=(Team t1, Team t2)
         {
             return !(t1 == t2);
+        }
+
+        public virtual object DeepCopy()
+        {
+            return new Team(teamName, teamID);
         }
 
         public override int GetHashCode()
