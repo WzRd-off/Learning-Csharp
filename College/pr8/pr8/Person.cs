@@ -12,6 +12,12 @@ namespace pr8
         protected string lastName;
         protected DateTime dateOfBirth;
 
+        public string FirstName { get => firstName; set => firstName = value; }
+        public string LastName { get => lastName; set => lastName = value; }
+        public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
+
+        public Person() { }
+
         public Person(string firstName, string lastName, DateTime dateOfBirth)
         {
             this.firstName = firstName;

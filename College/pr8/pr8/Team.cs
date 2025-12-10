@@ -11,6 +11,10 @@ namespace pr8
         protected string teamName;
         protected int teamID;
 
+        public string TeamName { get => teamName; set => teamName = value; }
+
+        public Team() {  }
+
         public Team(string teamName, int teamID)
         {
             this.teamName = teamName;
@@ -61,5 +65,8 @@ namespace pr8
         {
             return (teamName, teamID).GetHashCode();
         }
+
+        public override string ToString() => $"Команда: {teamName}, ID: {teamID}";
+
     }
 }

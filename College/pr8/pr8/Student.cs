@@ -1,11 +1,12 @@
-﻿using System;
+﻿    using pr8;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using pr8;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace pr8
 {
@@ -14,8 +15,8 @@ namespace pr8
 
         private string formEducation;
         private int studentGroup;
-        private ArrayList test;
-        private ArrayList exam;
+        private List<Test> tests;
+        private List<Exam> exams;
 
         public int StudentGroup
         {
@@ -56,26 +57,51 @@ namespace pr8
             }
         }
 
-        public Student
-            (string firstName, string lastName,
-            DateTime dateOfBirth, string formEducation,
-            int studentGroup, ArrayList test, ArrayList exam)
+        public List<Test> Tests { get => tests; set => tests = value; }
+        public List<Exam> Exams { get => exams; set => exams = value; }
+
+        public Student() : base()
+        {
+            tests = new List<Test>();
+            exams = new List<Exam>();
+        }
+
+        public Student(string firstName, string lastName, DateTime dateOfBirth,
+            string formEducation, int studentGroup, List<Test> tests, List<Exam> exams)
             : base(firstName, lastName, dateOfBirth)
         {
             this.formEducation = formEducation;
-            this.studentGroup = studentGroup;
-            this.test = new ArrayList(test);
-            this.exam = new ArrayList(exam);
+            this.StudentGroup = studentGroup;
+            this.tests = new List<Test>(tests);
+            this.exams = new List<Exam>(exams);
         }
 
         public override object DeepCopy()
         {
             return new Student(firstName, lastName, dateOfBirth,
                 formEducation, studentGroup,
-                new ArrayList(test), new ArrayList(exam));
+                new List<Test>(tests), new List<Exam>(exams));
         }
-        
 
+        public IEnumerable<object> GetAllAssessments()
+        {
+            foreach (var t in tests) yield return t;
+            foreach (var e in exams) yield return e;
+        }
+
+        public IEnumerable<Exam> GetExamsAboveGrade(int minGrade)
+        {
+            foreach (var e in exams)
+            {
+                if (e.Grade > minGrade)
+                    yield return e;
+            }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $" Группа: {StudentGroup}, Форма: {formEducation}, Экзаменов: {exams.Count}, Зачетов: {tests.Count}";
+        }
 
     }
 }
