@@ -28,9 +28,9 @@ namespace pr7
             service.ToolCollection.AddTool(new Tool(103, "Бетонозмішувач", "Важке", 300m, "пошкоджений"));
             service.ToolCollection.AddTool(new Tool(104, "Шліфувальна машина", "Електро", 120m, "новий"));
 
-            service.AddClient(new Client(1, "Шевченко Тарас", "0501112233"));
-            service.AddClient(new Client(2, "Франко Іван", "0679998877"));
-            service.AddClient(new Client(3, "Леся Українка", "0935554433"));
+            service.AddClient(new Client(1, "Тарас", "0501112233"));
+            service.AddClient(new Client(2, "Іван", "0679998877"));
+            service.AddClient(new Client(3, "Євген", "0935554433"));
         }
 
         private void SetupGrids()
