@@ -26,7 +26,7 @@ namespace pr8
             get { return teamID; }
             set 
             {
-                if (0 > value)
+                if (value > 0)
                 {
                     throw new ArgumentOutOfRangeException("Registration number must be non-negative.");
                 }

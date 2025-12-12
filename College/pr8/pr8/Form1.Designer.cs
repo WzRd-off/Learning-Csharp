@@ -52,6 +52,8 @@
         private void InitializeComponent()
         {
             this.grpTeam = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbTeamList = new System.Windows.Forms.ComboBox();
             this.lblTeamName = new System.Windows.Forms.Label();
             this.txtTeamName = new System.Windows.Forms.TextBox();
             this.lblTeamID = new System.Windows.Forms.Label();
@@ -59,6 +61,7 @@
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnUpdateTeam = new System.Windows.Forms.Button();
             this.grpMember = new System.Windows.Forms.GroupBox();
+            this.cbMemberList = new System.Windows.Forms.ComboBox();
             this.lblMemName = new System.Windows.Forms.Label();
             this.txtMemFirstName = new System.Windows.Forms.TextBox();
             this.lblMemLast = new System.Windows.Forms.Label();
@@ -80,14 +83,17 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
             this.txtOutput = new System.Windows.Forms.TextBox();
-            this.cbTeamList = new System.Windows.Forms.ComboBox();
-            this.cbMemberList = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtEduForm = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numStudentGroup = new System.Windows.Forms.NumericUpDown();
+            this.btnUpdateMember = new System.Windows.Forms.Button();
             this.grpTeam.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTeamID)).BeginInit();
             this.grpMember.SuspendLayout();
             this.grpPaper.SuspendLayout();
             this.grpTests.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numStudentGroup)).BeginInit();
             this.SuspendLayout();
             // 
             // grpTeam
@@ -106,6 +112,23 @@
             this.grpTeam.TabIndex = 0;
             this.grpTeam.TabStop = false;
             this.grpTeam.Text = "Дані Команди";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 138);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 16);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Поточна команда: ";
+            // 
+            // cbTeamList
+            // 
+            this.cbTeamList.FormattingEnabled = true;
+            this.cbTeamList.Location = new System.Drawing.Point(6, 157);
+            this.cbTeamList.Name = "cbTeamList";
+            this.cbTeamList.Size = new System.Drawing.Size(200, 24);
+            this.cbTeamList.TabIndex = 7;
             // 
             // lblTeamName
             // 
@@ -166,7 +189,7 @@
             // 
             // btnUpdateTeam
             // 
-            this.btnUpdateTeam.Location = new System.Drawing.Point(115, 199);
+            this.btnUpdateTeam.Location = new System.Drawing.Point(111, 199);
             this.btnUpdateTeam.Name = "btnUpdateTeam";
             this.btnUpdateTeam.Size = new System.Drawing.Size(95, 40);
             this.btnUpdateTeam.TabIndex = 5;
@@ -175,6 +198,11 @@
             // 
             // grpMember
             // 
+            this.grpMember.Controls.Add(this.btnUpdateMember);
+            this.grpMember.Controls.Add(this.numStudentGroup);
+            this.grpMember.Controls.Add(this.label3);
+            this.grpMember.Controls.Add(this.txtEduForm);
+            this.grpMember.Controls.Add(this.label2);
             this.grpMember.Controls.Add(this.cbMemberList);
             this.grpMember.Controls.Add(this.lblMemName);
             this.grpMember.Controls.Add(this.txtMemFirstName);
@@ -185,10 +213,18 @@
             this.grpMember.Controls.Add(this.btnAddMember);
             this.grpMember.Location = new System.Drawing.Point(240, 12);
             this.grpMember.Name = "grpMember";
-            this.grpMember.Size = new System.Drawing.Size(220, 245);
+            this.grpMember.Size = new System.Drawing.Size(565, 198);
             this.grpMember.TabIndex = 1;
             this.grpMember.TabStop = false;
             this.grpMember.Text = "Додати Учасника";
+            // 
+            // cbMemberList
+            // 
+            this.cbMemberList.FormattingEnabled = true;
+            this.cbMemberList.Location = new System.Drawing.Point(10, 157);
+            this.cbMemberList.Name = "cbMemberList";
+            this.cbMemberList.Size = new System.Drawing.Size(200, 24);
+            this.cbMemberList.TabIndex = 8;
             // 
             // lblMemName
             // 
@@ -243,9 +279,9 @@
             // 
             // btnAddMember
             // 
-            this.btnAddMember.Location = new System.Drawing.Point(10, 204);
+            this.btnAddMember.Location = new System.Drawing.Point(376, 144);
             this.btnAddMember.Name = "btnAddMember";
-            this.btnAddMember.Size = new System.Drawing.Size(200, 35);
+            this.btnAddMember.Size = new System.Drawing.Size(95, 44);
             this.btnAddMember.TabIndex = 6;
             this.btnAddMember.Text = "Додати учасника";
             this.btnAddMember.Click += new System.EventHandler(this.BtnAddMember_Click);
@@ -257,9 +293,9 @@
             this.grpPaper.Controls.Add(this.lblPaperDate);
             this.grpPaper.Controls.Add(this.dtpPaperDate);
             this.grpPaper.Controls.Add(this.btnAddPaper);
-            this.grpPaper.Location = new System.Drawing.Point(470, 12);
+            this.grpPaper.Location = new System.Drawing.Point(12, 257);
             this.grpPaper.Name = "grpPaper";
-            this.grpPaper.Size = new System.Drawing.Size(220, 245);
+            this.grpPaper.Size = new System.Drawing.Size(220, 197);
             this.grpPaper.TabIndex = 2;
             this.grpPaper.TabStop = false;
             this.grpPaper.Text = "Додати Публікацію";
@@ -300,7 +336,7 @@
             // 
             // btnAddPaper
             // 
-            this.btnAddPaper.Location = new System.Drawing.Point(10, 204);
+            this.btnAddPaper.Location = new System.Drawing.Point(6, 146);
             this.btnAddPaper.Name = "btnAddPaper";
             this.btnAddPaper.Size = new System.Drawing.Size(200, 35);
             this.btnAddPaper.TabIndex = 4;
@@ -315,9 +351,9 @@
             this.grpTests.Controls.Add(this.btnIterRecent);
             this.grpTests.Controls.Add(this.btnSave);
             this.grpTests.Controls.Add(this.btnLoad);
-            this.grpTests.Location = new System.Drawing.Point(700, 12);
+            this.grpTests.Location = new System.Drawing.Point(12, 460);
             this.grpTests.Name = "grpTests";
-            this.grpTests.Size = new System.Drawing.Size(220, 245);
+            this.grpTests.Size = new System.Drawing.Size(220, 138);
             this.grpTests.TabIndex = 3;
             this.grpTests.TabStop = false;
             this.grpTests.Text = "Тестування та Файли";
@@ -379,44 +415,75 @@
             // txtOutput
             // 
             this.txtOutput.Font = new System.Drawing.Font("Consolas", 10F);
-            this.txtOutput.Location = new System.Drawing.Point(12, 263);
+            this.txtOutput.Location = new System.Drawing.Point(238, 216);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutput.Size = new System.Drawing.Size(910, 287);
+            this.txtOutput.Size = new System.Drawing.Size(567, 382);
             this.txtOutput.TabIndex = 4;
             // 
-            // cbTeamList
+            // label2
             // 
-            this.cbTeamList.FormattingEnabled = true;
-            this.cbTeamList.Location = new System.Drawing.Point(6, 157);
-            this.cbTeamList.Name = "cbTeamList";
-            this.cbTeamList.Size = new System.Drawing.Size(200, 24);
-            this.cbTeamList.TabIndex = 7;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(271, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Форма навчання:";
             // 
-            // cbMemberList
+            // txtEduForm
             // 
-            this.cbMemberList.FormattingEnabled = true;
-            this.cbMemberList.Location = new System.Drawing.Point(10, 157);
-            this.cbMemberList.Name = "cbMemberList";
-            this.cbMemberList.Size = new System.Drawing.Size(200, 24);
-            this.cbMemberList.TabIndex = 8;
+            this.txtEduForm.Location = new System.Drawing.Point(271, 48);
+            this.txtEduForm.Name = "txtEduForm";
+            this.txtEduForm.Size = new System.Drawing.Size(200, 22);
+            this.txtEduForm.TabIndex = 9;
             // 
-            // label1
+            // label3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 138);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 16);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Поточна команда: ";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(271, 86);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(66, 16);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Група №:";
+            // 
+            // numStudentGroup
+            // 
+            this.numStudentGroup.Location = new System.Drawing.Point(274, 105);
+            this.numStudentGroup.Maximum = new decimal(new int[] {
+            599,
+            0,
+            0,
+            0});
+            this.numStudentGroup.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numStudentGroup.Name = "numStudentGroup";
+            this.numStudentGroup.Size = new System.Drawing.Size(197, 22);
+            this.numStudentGroup.TabIndex = 11;
+            this.numStudentGroup.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // btnUpdateMember
+            // 
+            this.btnUpdateMember.Location = new System.Drawing.Point(275, 144);
+            this.btnUpdateMember.Name = "btnUpdateMember";
+            this.btnUpdateMember.Size = new System.Drawing.Size(95, 42);
+            this.btnUpdateMember.TabIndex = 12;
+            this.btnUpdateMember.Text = "Оновити учасника";
+            this.btnUpdateMember.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(940, 570);
+            this.ClientSize = new System.Drawing.Size(811, 607);
             this.Controls.Add(this.grpTeam);
             this.Controls.Add(this.grpMember);
             this.Controls.Add(this.grpPaper);
@@ -432,6 +499,7 @@
             this.grpPaper.ResumeLayout(false);
             this.grpPaper.PerformLayout();
             this.grpTests.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numStudentGroup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,5 +508,10 @@
         private System.Windows.Forms.ComboBox cbTeamList;
         private System.Windows.Forms.ComboBox cbMemberList;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnUpdateMember;
+        private System.Windows.Forms.NumericUpDown numStudentGroup;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtEduForm;
     }
 }

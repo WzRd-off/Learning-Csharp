@@ -23,7 +23,7 @@ namespace pr8
             get => studentGroup;
             set
             {
-                if (599 >= value && 100 <= value)
+                if (599 <= value && 100 >= value)
                 {
                     throw new ArgumentOutOfRangeException("Student group must be in diapazone 100-599");
                 }
@@ -32,6 +32,12 @@ namespace pr8
                     studentGroup = value;
                 }
             }
+        }
+
+        public string FormEducation
+        {
+            get => formEducation;
+            set => formEducation = value;
         }
 
         public Person Person
