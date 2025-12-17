@@ -48,8 +48,7 @@ namespace pr8
 
             if (currentMember is Student student)
             {
-                // Примечание: Убедитесь, что в классе Student есть свойство FormEducation, иначе эта строка вызовет ошибку
-                // txtEduForm.Text = student.FormEducation; 
+                txtEduForm.Text = student.FormEducation; 
                 try { numStudentGroup.Value = student.StudentGroup; } catch { }
             }
             else
@@ -156,8 +155,7 @@ namespace pr8
                 if (currentMember is Student s)
                 {
                     s.StudentGroup = (int)numStudentGroup.Value;
-                    // Примечание: Убедитесь, что в классе Student есть свойство FormEducation, иначе эта строка вызовет ошибку
-                    // s.FormEducation = txtEduForm.Text;
+                    s.FormEducation = txtEduForm.Text;
                 }
 
                 Print($"[OK] Дані учасника оновлено.");
