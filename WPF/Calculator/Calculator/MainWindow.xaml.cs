@@ -37,6 +37,7 @@ namespace Calculator
         {
             Operation = (sender as Button).Content.ToString();
             FirstNum = double.Parse(tbCurrAct.Text);
+
             lblTemp.Content += $"{tbCurrAct.Text} {(sender as Button).Content}";
             tbCurrAct.Text = "";
         }
@@ -113,7 +114,7 @@ namespace Calculator
         private void btnPercentClick(object sender, RoutedEventArgs e) {
 
             for (int i = 0; i < 100; i++) 
-            MessageBox.Show("ИДИ НАХУЙ ЧМО, НЕ РАБОТАЕТ", "Error evolution", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("НЕ РАБОТАЕТ", "Error evolution", MessageBoxButton.OK, MessageBoxImage.Error);
         
         }
 
