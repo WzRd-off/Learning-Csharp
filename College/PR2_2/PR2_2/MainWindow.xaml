@@ -14,6 +14,7 @@
             <Setter Property="Margin" Value="10,5"/>
             <Setter Property="Width" Value="100"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <EventSetter Event="PreviewTextInput" Handler="TextBox_PreviewTextInput"/>
         </Style>
         
         <Style x:Key="UnitSelectorStyle" TargetType="ComboBox">
@@ -36,17 +37,17 @@
         <!-- ИНТЕРФЕЙСЫ ПОЛЕЙ ВВОДА (ПАНЕЛИ) -->
  
         <StackPanel x:Key="View_Tri_3Sides">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <TextBlock Text="a ="/>
                 <TextBox x:Name="tb_tri_a"/>
                 <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <TextBlock Text="b ="/>
                 <TextBox x:Name="tb_tri_b"/>
                 <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <TextBlock Text="c ="/>
                 <TextBox x:Name="tb_tri_c"/>
                 <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
@@ -54,22 +55,23 @@
         </StackPanel>
 
         <StackPanel x:Key="View_Tri_2SidesAngle">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <TextBlock Text="a ="/>
                 <TextBox x:Name="tb_tri_sa"/>
                 <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <TextBlock Text="b ="/>
                 <TextBox x:Name="tb_tri_sb"/>
                 <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <TextBlock Text="α ="/>
                 <TextBox x:Name="tb_tri_angle"/>
                 <TextBlock Text="°" Margin="5,0"/>
             </StackPanel>
         </StackPanel>
+        
 
         <StackPanel x:Key="View_Square_Side">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -78,8 +80,7 @@
                 <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
             </StackPanel>
         </StackPanel>
-
-
+        
         <StackPanel x:Key="View_Square_Diag">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="d ="/>
@@ -89,7 +90,170 @@
         </StackPanel>
 
 
-        <!-- СПИСКИ ВАРИАНТОВ ДЛЯ COMBOBOX -->
+        <StackPanel x:Key="View_Parallelogram_2SidesAngle">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="a ="/>
+                <TextBox x:Name="tb_par_a"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="b ="/>
+                <TextBox x:Name="tb_par_b"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="α ="/>
+                <TextBox x:Name="tb_par_angle"/>
+                <TextBlock Text="°" Margin="5,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Key="View_Parallelogram_WidthHeigth">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="b ="/>
+                <TextBox x:Name="tb_par_w_wh"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="h ="/>
+                <TextBox x:Name="tb_par_h_wh"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Key="View_Parallelogram_2DiagsAngle">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="d1 ="/>
+                <TextBox x:Name="tb_par_d1"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="d2 ="/>
+                <TextBox x:Name="tb_par_d2"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="α ="/>
+                <TextBox x:Name="tb_par_d_angle"/>
+                <TextBlock Text="°" Margin="5,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        
+        <StackPanel x:Key="View_Rhomb_2SidesAngle">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="a ="/>
+                <TextBox x:Name="tb_rhomb_a"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="α ="/>
+                <TextBox x:Name="tb_rhomb_angle"/>
+                <TextBlock Text="°" Margin="5,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Key="View_Rhomb_WidthHeigth">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="b ="/>
+                <TextBox x:Name="tb_rhomb_w_wh"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="h ="/>
+                <TextBox x:Name="tb_rhomb_h_wh"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel x:Key="View_Rhomb_2Diags">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="d1 ="/>
+                <TextBox x:Name="tb_rhomb_d1"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="d2 ="/>
+                <TextBox x:Name="tb_rhomb_d2"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+        </StackPanel>
+
+        
+        <StackPanel x:Key="View_Trapeze_BasisHeigth">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="a ="/>
+                <TextBox x:Name="tb_trap_a"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="b ="/>
+                <TextBox x:Name="tb_trap_b"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="h ="/>
+                <TextBox x:Name="tb_trap_h"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel> 
+        </StackPanel>
+
+        <StackPanel x:Key="View_Trapeze_MedlineHeigth">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="m ="/>
+                <TextBox x:Name="tb_trap_m"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="h ="/>
+                <TextBox x:Name="tb_trap_h_m"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Key="View_Trapeze_2DiagAngle">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="d1 ="/>
+                <TextBox x:Name="tb_trap_d1"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="d2 ="/>
+                <TextBox x:Name="tb_trap_d2"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock Text="α ="/>
+                <TextBox x:Name="tb_trap_angle"/>
+                <TextBlock Text="°" Margin="5,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        
+        <StackPanel x:Key="View_Circle_Radius">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="r ="/>
+                <TextBox x:Name="tb_circle_r"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Key="View_Circle_Diameter">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="d ="/>
+                <TextBox x:Name="tb_circle_d"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Key="View_Circle_length">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="L ="/>
+                <TextBox x:Name="tb_circle_l"/>
+                <ComboBox Style="{StaticResource UnitSelectorStyle}"/>
+            </StackPanel>
+        </StackPanel>
+
+            <!-- СПИСКИ ВАРИАНТОВ ДЛЯ COMBOBOX -->
 
         <x:Array x:Key="ComboItems_Triangle" Type="ComboBoxItem">
             <ComboBoxItem Content="Три сторони" Tag="{StaticResource View_Tri_3Sides}" IsSelected="True"/>
@@ -103,8 +267,30 @@
             <ComboBoxItem Content="Діагональ квадрата" Tag="{StaticResource View_Square_Diag}"/>
         </x:Array>
 
-        <x:Array x:Key="ComboItems_Empty" Type="ComboBoxItem">
-            <ComboBoxItem Content="Не реалізовано" IsSelected="True"/>
+        <x:Array x:Key="ComboItems_Parallelogram" Type="ComboBoxItem">
+            <ComboBoxItem Content="Сторони та кут між ними" Tag="{StaticResource View_Parallelogram_2SidesAngle}" IsSelected="True"/>
+            <ComboBoxItem Content="Сторона та висота" Tag="{StaticResource View_Parallelogram_WidthHeigth}"/>
+            <ComboBoxItem Content="Діагоналі та кут між ними" Tag="{StaticResource View_Parallelogram_2DiagsAngle}"/>
+        </x:Array>
+
+        <x:Array x:Key="ComboItems_Rhomb" Type="ComboBoxItem">
+            <ComboBoxItem Content="Сторона та кут" Tag="{StaticResource View_Rhomb_2SidesAngle}" IsSelected="True"/>
+            <ComboBoxItem Content="Сторона та висота" Tag="{StaticResource View_Rhomb_WidthHeigth}"/>
+            <ComboBoxItem Content="Діагоналі" Tag="{StaticResource View_Rhomb_2Diags}"/>
+        </x:Array>
+
+
+        <x:Array x:Key="ComboItems_Trapeze" Type="ComboBoxItem">
+            <ComboBoxItem Content="Основи та висота" Tag="{StaticResource View_Trapeze_BasisHeigth}" IsSelected="True"/>
+            <ComboBoxItem Content="Середня лінія та висота" Tag="{StaticResource View_Trapeze_MedlineHeigth}"/>
+            <ComboBoxItem Content="Діагоналі та кут між ними" Tag="{StaticResource View_Trapeze_2DiagAngle}"/>
+        </x:Array>
+
+
+        <x:Array x:Key="ComboItems_Circle" Type="ComboBoxItem">
+            <ComboBoxItem Content="Радіус" Tag="{StaticResource View_Circle_Radius}" IsSelected="True"/>
+            <ComboBoxItem Content="Діаметр" Tag="{StaticResource View_Circle_Diameter}"/>
+            <ComboBoxItem Content="Довжина кола" Tag="{StaticResource View_Circle_length}"/>
         </x:Array>
 
     </Window.Resources>
@@ -127,7 +313,7 @@
                     <TextBlock Text="Геометрична фігура" Margin="0,0,0,10"/>
 
 
-                    <ListBox x:Name="cbShapes" SelectedIndex="0" BorderThickness="1" BorderBrush="#DDD">
+                    <ListBox x:Name="lbShapes" SelectedIndex="0" BorderThickness="1" BorderBrush="#DDD" SelectionChanged="setDefaultStateCb">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="Padding" Value="5"/>
@@ -137,14 +323,14 @@
 
                         <ListBoxItem Content="Трикутник" Tag="{StaticResource ComboItems_Triangle}"/>
                         <ListBoxItem Content="Квадрат" Tag="{StaticResource ComboItems_Square}"/>
-                        <ListBoxItem Content="Паралелограм" Tag="{StaticResource ComboItems_Empty}"/>
-                        <ListBoxItem Content="Ромб" Tag="{StaticResource ComboItems_Empty}"/>
-                        <ListBoxItem Content="Трапеція" Tag="{StaticResource ComboItems_Empty}"/>
-                        <ListBoxItem Content="Коло" Tag="{StaticResource ComboItems_Empty}"/>
+                        <ListBoxItem Content="Паралелограм" Tag="{StaticResource ComboItems_Parallelogram}"/>
+                        <ListBoxItem Content="Ромб" Tag="{StaticResource ComboItems_Rhomb}"/>
+                        <ListBoxItem Content="Трапеція" Tag="{StaticResource ComboItems_Trapeze}"/>
+                        <ListBoxItem Content="Коло" Tag="{StaticResource ComboItems_Circle}"/>
                     </ListBox>
 
-                    <Button x:Name="btnClearInputs" Content="Очистити поля" Margin="0,20,0,5" />
-                    <Button x:Name="btnFindArea" Content="Знайти площу"/>
+                    <Button x:Name="btnClearInputs" Content="Очистити поля" Margin="0,20,0,5" Click="btnClearInputs_Click" />
+                    <Button x:Name="btnFindArea" Content="Знайти площу" Click="btnFindArea_Click"/>
                 </StackPanel>
             </Border>
 
@@ -161,8 +347,9 @@
 
                     <ComboBox x:Name="cbParamsSelector" 
                               Width="200"
-                              ItemsSource="{Binding SelectedItem.Tag, ElementName=cbShapes}"
-                              SelectedIndex="0"/>
+                              ItemsSource="{Binding SelectedItem.Tag, ElementName=lbShapes}"
+                              SelectedIndex="0"                    
+                              />
                 </StackPanel>
 
                 <GroupBox Grid.Row="1" Header="Введіть дані" BorderBrush="#CCC" Background="White">
