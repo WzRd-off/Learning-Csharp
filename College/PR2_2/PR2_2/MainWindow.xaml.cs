@@ -23,8 +23,7 @@ namespace PR2_2
         public MainWindow()
         {
             InitializeComponent();
-        }
-
+        } 
         private void onSelected(object sender, RoutedEventArgs e)
         {
             ListBoxItem lbi = e.Source as ListBoxItem;
