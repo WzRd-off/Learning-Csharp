@@ -1,0 +1,34 @@
+﻿<Window x:Class="PR2_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PR2_2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="800">
+    <Grid>
+		<DockPanel>
+			<StackPanel Width="300px" DockPanel.Dock="Left">
+				<TextBlock Text="Геометрична фігура" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,10"/>
+				<ListBox x:Name="cbShapes" Margin="10,10,10,10">
+					<ListBoxItem Selected="onSelected" IsSelected="True" Content="Квадрат"/>
+					<ListBoxItem Selected="onSelected" Content="Паралелограм"/>
+					<ListBoxItem Selected="onSelected" Content="Трикутник"/>
+					<ListBoxItem Selected="onSelected" Content="Коло"/>
+					<ListBoxItem Selected="onSelected" Content="Ромб"/>
+					<ListBoxItem Selected="onSelected" Content="Трапеція"/>
+				</ListBox>
+				<Button x:Name="btnClearInputs" Content="Очистити поля вводу" Margin="10,0,10,5"></Button>
+				<Button x:Name="btnFindArea" Content="Знайти площу" Margin="10,0,10,0"></Button>
+			</StackPanel>
+			<StackPanel>
+				<TextBlock Text="Введіть параметри фігури" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,10"/>
+				<GroupBox Header="Параметри" Margin="10,0,10,10">
+					<StackPanel x:Name="spParameters" Margin="10,10,10,10">
+						
+					</StackPanel>
+				</GroupBox>
+			</StackPanel>
+		</DockPanel>
+    </Grid>
+</Window>
