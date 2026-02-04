@@ -21,6 +21,7 @@ namespace PR2_2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private double area = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -59,7 +60,7 @@ namespace PR2_2
             // InputArea - ControlPanel
             // stackPanel - StackPanel(child InputArea)
 
-            var stackPanel = (InputArea.Content as StackPanel);
+            StackPanel stackPanel = (InputArea.Content as StackPanel);
             foreach (StackPanel child in stackPanel.Children)
             {
                 child.Children.OfType<TextBox>().First().Clear();
@@ -68,9 +69,10 @@ namespace PR2_2
 
         private void btnFindArea_Click(object sender, RoutedEventArgs e)
         {
+            StackPanel stackPanel = (InputArea.Content as StackPanel);
             string selectedItemName = (lbShapes.SelectedItem as ListBoxItem).Content.ToString();
             string selectedParamSet = (cbParamsSelector.SelectedItem as ComboBoxItem).Content.ToString();
-            double area = 0;
+
             var view = InputArea.Content as FrameworkElement;
             if (view == null) return;
 
@@ -81,11 +83,16 @@ namespace PR2_2
                     case "Трикутник":
                         if (selectedParamSet == "Три сторони")
                         {
-                            // Используем LogicalTreeHelper.FindLogicalNode вместо view.FindName
                             double a = double.Parse(((TextBox)LogicalTreeHelper.FindLogicalNode(view, "tb_tri_a")).Text);
                             double b = double.Parse(((TextBox)LogicalTreeHelper.FindLogicalNode(view, "tb_tri_b")).Text);
                             double c = double.Parse(((TextBox)LogicalTreeHelper.FindLogicalNode(view, "tb_tri_c")).Text);
 
+                            if (a + b <= c || a + c <= b || b + c <= a)
+                            {
+                                MessageBox.Show("Неможливо побудувати трикутник з такими сторонами.");
+                                return;
+                            }
+ 
                             double p = (a + b + c) / 2;
                             area = Math.Sqrt(p * (p - a) * (p - b) * (p - c));
                         }
@@ -202,12 +209,21 @@ namespace PR2_2
                         }
                         break;
                 }
+                foreach (StackPanel child in stackPanel.Children)
+                {
+                    ComboBox a = child.Children.OfType<ComboBox>().First();
+                    if (a.SelectedItem.ToString() == "см") { area *= 0.01; }
+                    else if (a.SelectedItem.ToString() == "м") { area *= 1; }
+                    else if (a.SelectedItem.ToString() == "мм") { area *= 0.001; }
+                }
             }
             catch
             {
                 area = 0;
             }
-
+            if      (cbAreaUnit.SelectedItem.ToString() == "см") { area *= 100; }
+            else if (cbAreaUnit.SelectedItem.ToString() == "м") { area *= 1; }
+            else if (cbAreaUnit.SelectedItem.ToString() == "мм") { area *= 1000; }
             tbAreaResult.Text = Math.Round(area, 2).ToString();
         }
     }
