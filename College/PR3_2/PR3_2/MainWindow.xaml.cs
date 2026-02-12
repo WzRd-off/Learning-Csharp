@@ -21,34 +21,54 @@ namespace PR3_2
     public partial class MainWindow : Window
     {
 
-        private int _size = 3;
+        private int _size = 0;
 
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
-        private void checkSize() 
+        private void checkSize()
         {
-            string size = cbSize.SelectedItem.ToString();
-            if (size == "3x3")
+            if (cbSize.SelectedItem is ComboBoxItem item)
             {
-                _size = 3;
+                string size = item.Content.ToString();
+                if (size == "3x3") _size = 3;
+                else if (size == "5x5") _size = 5;
+                else if (size == "8x8") _size = 8;
             }
-            else if (size == "5x5")
-            {
-                _size = 5;
-            }
-            else if (size == "8x8")
-            {
-                _size = 8;
-            }
+        }
 
+        private void FillGrid()
+        {
+            checkSize();
+
+            if (cpPuzzle != null && cpPuzzle.Content is Grid mainGrid)
+            {
+                mainGrid.Children.Clear();
+
+                for (int i = 0; i < _size; i++)
+                {
+                    for (int j = 0; j < _size; j++)
+                    {
+                        Button btn = new Button();
+                        Grid.SetRow(btn, i);
+                        Grid.SetColumn(btn, j);
+                        mainGrid.Children.Add(btn);
+                    }
+                }
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            FillGrid();
         }
 
         private void RefreshGP(object sender, SelectionChangedEventArgs e)
         {
-
+            FillGrid();
         }
     }
 }
