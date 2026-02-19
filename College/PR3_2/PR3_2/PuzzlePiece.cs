@@ -1,59 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows.Media;
 
 namespace PR3_2
 {
-    internal class PuzzlePiece: INotifyPropertyChanged
+    public class PuzzlePiece : INotifyPropertyChanged
     {
         private int _currentRow;
         private int _currentColumn;
-        private int _correctRow;
-        private int _correctColumn;
-        private ImageSource _image;
+        private double _x;
+        private double _y;
+        private int _zIndex;
 
-        public PuzzlePiece(int currentRow, int currentColumn, int correctRow, int correctColumn, ImageSource image)
+        public int CurrentRow
         {
-            this._currentRow = currentRow;
-            this._currentColumn = currentColumn;
-            this._correctRow = correctRow;
-            this._correctColumn = correctColumn;
-            this._image = image;
-        }
-
-        public int CurrentRow 
-        { 
             get => _currentRow;
-            set 
+            set
             {
                 _currentRow = value;
-                OnPropertyChanged("CurrentRow");
-            } 
+                OnPropertyChanged(nameof(CurrentRow));
+            }
         }
-        public int CurrentColumn 
-        { 
+
+        public int CurrentColumn
+        {
             get => _currentColumn;
-            set 
+            set
             {
                 _currentColumn = value;
-                OnPropertyChanged("CurrentColumn");
-            }  
+                OnPropertyChanged(nameof(CurrentColumn));
+            }
         }
-        public int CorrectRow { get => _correctRow; }
-        public int CorrectColumn { get => _correctColumn; }
-        public ImageSource Image { get => _image; }
+
+        public int CorrectRow { get; }
+        public int CorrectColumn { get; }
+
+        public double X
+        {
+            get => _x;
+            set
+            {
+                _x = value;
+                OnPropertyChanged(nameof(X));
+            }
+        }
+
+        public double Y
+        {
+            get => _y;
+            set
+            {
+                _y = value;
+                OnPropertyChanged(nameof(Y));
+            }
+        }
+
+        public double Width { get; }
+        public double Height { get; }
+
+        public int ZIndex
+        {
+            get => _zIndex;
+            set
+            {
+                _zIndex = value;
+                OnPropertyChanged(nameof(ZIndex));
+            }
+        }
+
+        public ImageSource Image { get; }
+
+        public PuzzlePiece(int correctRow, int correctColumn, ImageSource image, double width, double height)
+        {
+            CorrectRow = correctRow;
+            CorrectColumn = correctColumn;
+            CurrentRow = correctRow;
+            CurrentColumn = correctColumn;
+            Image = image;
+            Width = width;
+            Height = height;
+            X = CurrentColumn * width;
+            Y = CurrentRow * height;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
+        protected void OnPropertyChanged(string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
 }
