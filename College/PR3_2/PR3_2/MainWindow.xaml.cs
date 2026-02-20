@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Linq; // Додано для пошуку елементів (FirstOrDefault)
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
@@ -19,6 +20,36 @@ namespace PR3_2
             InitializeComponent();
             _viewModel = new ViewModel();
             DataContext = _viewModel;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel.LoadGame();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_viewModel.PuzzlePieces.Count > 0 && !_viewModel.IsGameCompleted)
+            {
+                var result = MessageBox.Show(
+                    "У вас є незавершений пазл. Бажаєте зберегти прогрес перед виходом?",
+                    "Збереження",
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _viewModel.SaveGame();
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    _viewModel.RemoveSave();
+                }
+                else if (result == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
         private void Piece_MouseDown(object sender, MouseButtonEventArgs e)

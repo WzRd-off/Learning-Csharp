@@ -1,10 +1,12 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
+using System.Text.Json;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -12,10 +14,13 @@ namespace PR3_2
 {
     public class ViewModel : INotifyPropertyChanged
     {
+        private const string AutoSaveFileName = "autosave.json";
         private BitmapImage _image;
         private int _columns = 3;
         private int _rows = 3;
         private int _moves = 0;
+
+        public bool IsGameCompleted = false;
 
         public ObservableCollection<PuzzlePiece> PuzzlePieces { get; set; }
 
@@ -70,7 +75,7 @@ namespace PR3_2
         private void CreatePuzzle(object obj)
         {
             if (Image == null || Rows <= 0 || Columns <= 0) return;
-
+            IsGameCompleted = false;
             PuzzlePieces.Clear();
             Moves = 0;
 
@@ -89,6 +94,71 @@ namespace PR3_2
                     PuzzlePieces.Add(new PuzzlePiece(i, j, cropped, displayWidth, displayHeight));
                 }
             }
+        }
+
+        public void SaveGame()
+        {
+            try
+            {
+                GameState state = new GameState(Image.UriSource.LocalPath, Rows,
+                                                Columns, Moves, 
+                                                new List<PieceState>(
+                                                    PuzzlePieces.Select(p => new PieceState
+                                                    {
+                                                        CurrentRow = p.CurrentRow,
+                                                        CurrentColumn = p.CurrentColumn,
+                                                        CorrectRow = p.CorrectRow,
+                                                        CorrectColumn = p.CorrectColumn
+                                                    }).ToList())
+                                                );
+                string json = JsonSerializer.Serialize(state, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(AutoSaveFileName, json);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка при збереженні гри: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void LoadGame()
+        {
+            try
+            {
+
+                string json = File.ReadAllText(AutoSaveFileName);
+                GameState state = JsonSerializer.Deserialize<GameState>(json);
+                Image = new BitmapImage(new Uri(state.ImagePath));
+                Rows = state.Rows;
+                Columns = state.Columns;
+                Moves = state.Moves;
+                PuzzlePieces.Clear();
+                int piecePixelWidth = Image.PixelWidth / Columns;
+                int piecePixelHeight = Image.PixelHeight / Rows;
+                double displayWidth = 100;
+                double displayHeight = 100;
+                foreach (var pieceState in state.Pieces)
+                {
+                    Int32Rect rect = new Int32Rect(pieceState.CorrectColumn * piecePixelWidth, pieceState.CorrectRow * piecePixelHeight, piecePixelWidth, piecePixelHeight);
+                    CroppedBitmap cropped = new CroppedBitmap(Image, rect);
+                    PuzzlePiece piece = new PuzzlePiece(pieceState.CorrectRow, pieceState.CorrectColumn, cropped, displayWidth, displayHeight)
+                    {
+                        CurrentRow = pieceState.CurrentRow,
+                        CurrentColumn = pieceState.CurrentColumn,
+                        X = pieceState.CurrentColumn * displayWidth,
+                        Y = pieceState.CurrentRow * displayHeight
+                    };
+                    PuzzlePieces.Add(piece);
+                }
+            }
+            catch (Exception ex) 
+            {
+                return;
+            }
+        }
+
+        public void RemoveSave() {
+            if (File.Exists(AutoSaveFileName)) File.Delete(AutoSaveFileName);
         }
 
         private void Shuffle(object obj)
@@ -143,8 +213,10 @@ namespace PR3_2
 
             if (won && PuzzlePieces.Count > 0)
             {
+                IsGameCompleted = true;
                 MessageBox.Show($"Вітаю! Ви зібрали пазл за {Moves} кроків.", "Перемога!", MessageBoxButton.OK, MessageBoxImage.Information);
                 Moves = 0;
+                RemoveSave();
             }
         }
 
